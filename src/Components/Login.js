@@ -29,7 +29,6 @@ class Login extends Component {
       credentials: 'include'
     })
     .then(res => {
-      console.log(res.json())
       if (res.status === 200) {
         this.props.history.push('/');
       } else {
@@ -38,7 +37,6 @@ class Login extends Component {
       }
     })
     .catch(err => {
-      console.error(err);
       alert('Error logging in please try again');
     });
   }

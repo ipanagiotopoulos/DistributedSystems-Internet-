@@ -130,11 +130,6 @@ app.post('/authenticate', (req, res) => {
                 res.cookie('username', user.username);
                 res.cookie('password', user.password);
                 res.cookie('token', token, { httpOnly: true}).sendStatus(200);
-                // res.json({ msg: 'ok', token: token });
-                //   let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-                //       expiresIn: 1440
-                //   })
-                //   res.send(token)
               } else {
                   res.status(400).json({error: 'Incorrect password'})
               }

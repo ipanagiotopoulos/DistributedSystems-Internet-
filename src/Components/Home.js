@@ -18,7 +18,6 @@ class Home extends Component {
             })
             .then(jsonData => {
                 this.setState({user: jsonData, isLoading: false})
-                console.log(this.state.user, this.props)
             })
     }
 

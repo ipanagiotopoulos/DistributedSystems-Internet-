@@ -12,6 +12,7 @@ import Secret from './Components/Secret';
 import ShowApplication from './Components/ShowApplication';
 import CreateApplication from './Components/CreateApplication';
 import Register from './Components/Register';
+import Edit from './Components/Edit';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
                 <Route exact path="/showApplication" component={withAuth(ShowApplication)} />
                 <Route exact path="/createApplication" component={withAuth(CreateApplication)} />
                 <Route exact path="/secret" component={withAuth(Secret)} />
+                <Route exact path="/edit" component={withAuth(Edit)} />
                 <Route component={NoMatch} />
               </Switch>
             </Layout>
