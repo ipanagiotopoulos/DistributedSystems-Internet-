@@ -10,7 +10,7 @@ module.exports = db.sequelize.define('user', {
       type: Sequelize.STRING,
     },
     enabled: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.TINYINT,
     }
 }, {
     freezeTableName: true,

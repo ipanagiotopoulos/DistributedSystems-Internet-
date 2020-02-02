@@ -5,8 +5,8 @@ const db = {}
 
 const sequelize = new Sequelize ({
     database: process.env.DATABASE,
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
+    username: process.env.DBUSERNAME,
+    password: process.env.DBPASSWORD,
     dialect: 'mysql',
     host: process.env.DBHOST,
     port: '3306'
