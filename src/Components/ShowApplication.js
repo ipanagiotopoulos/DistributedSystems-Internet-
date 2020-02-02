@@ -17,7 +17,6 @@ class ShowApplication extends Component {
             })
             .then(jsonData => {
                 this.setState({user: jsonData, isLoading: false})
-                console.log(this.state.user, this.props)
             })
     }
 
@@ -25,7 +24,6 @@ class ShowApplication extends Component {
         const { isLoading } = this.state;
         const { user } = this.state;
         const application = user.application;
-        console.log(application)
         return (
             <React.Fragment>
             {!isLoading ? (

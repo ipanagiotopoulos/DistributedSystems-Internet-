@@ -32,9 +32,7 @@ class Register extends Component {
     event.preventDefault();
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(this.state.password.toString(), salt)
-    this.setState({password: hash}, function () {
-        console.log(this.state)
-    });
+    this.setState({password: hash});
 
     fetch('http://localhost:8080/spring-mvc-1/api/user/'+this.state.username)
         .then(user => user.json())

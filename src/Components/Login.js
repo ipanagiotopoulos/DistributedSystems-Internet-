@@ -34,11 +34,9 @@ class Login extends Component {
       credentials: 'include'
     })
     .then(res => {
-      console.log(res.status)
       if (res.status === 200) {
         this.props.history.push('/');
       } else {
-        console.log('HEllooooooooooo')
         const error = new Error(res.error);
         throw error;
       }
