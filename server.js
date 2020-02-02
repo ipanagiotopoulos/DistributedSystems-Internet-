@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser')
 const path = require('path')
 var cors = require('cors')
 const jwt = require('jsonwebtoken')
-// const passport = require('passport');
-// const passportJWT = require('passport-jwt')
 const bcrypt = require('bcryptjs')
 const User = require('./models/User')
 const UserInformation = require('./models/UserInformation')
@@ -19,11 +17,6 @@ User.hasOne(Application, {foreignKey: 'username'});
 
 const app = express()
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
-// app.all('*', function (req, res) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-//   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-// });
 
 const secret = 'mysecretsshhh';
 
