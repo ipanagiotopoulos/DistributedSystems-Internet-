@@ -10,16 +10,16 @@ module.exports = db.sequelize.define('user_information', {
       type: Sequelize.STRING,
     },
     email: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
     },
     department_name: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('Informatics', 'Geography', 'Dietics', 'Economics'),
     },
     points: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
     },
     activated: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('active','inactive'),
     }
 }, {
     freezeTableName: true,

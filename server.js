@@ -98,6 +98,7 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/authenticate', (req, res) => {
+    console.log(req.body.username)
     User.findOne({
         where: {
             username: req.body.username
@@ -114,6 +115,7 @@ app.post('/authenticate', (req, res) => {
         
     })
       .then(user => {
+          console.log('User', user)
           if(user) {
               if(bcrypt.compareSync(req.body.password.toString(), user.password)) {
                 let username2 = user.username;

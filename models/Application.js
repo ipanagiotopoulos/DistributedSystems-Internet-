@@ -7,7 +7,7 @@ module.exports = db.sequelize.define('application', {
       primaryKey: true
     },
     department_name: {
-      type: Sequelize.STRING,
+        type: Sequelize.ENUM('Informatics', 'Geography', 'Dietics', 'Economics'),
     },
     city: {
         type: Sequelize.STRING,
@@ -19,16 +19,16 @@ module.exports = db.sequelize.define('application', {
         type: Sequelize.INTEGER,
     },
     parent1_employmentStatus: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('emp', 'unemp'),
     },
     parent2_employmentStatus: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('emp', 'unemp'),
     },
     siblingsStudents: {
         type: Sequelize.INTEGER
     },
     active: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM('active','inactive'),
     }
 }, {
     freezeTableName: true,

@@ -7,7 +7,7 @@ module.exports = db.sequelize.define('authority', {
       primaryKey: true
     },
     authority: {
-      type: Sequelize.STRING,
+      type: Sequelize.ENUM('ROLE_ADMIN', 'ROLE_SUPERVISOR', 'ROLE_OFFICER', 'ROLE_STUDENT'),
     }
 }, {
     freezeTableName: true,

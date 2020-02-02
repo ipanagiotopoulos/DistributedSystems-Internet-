@@ -19,19 +19,26 @@ class Login extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
+    var answer = {
+      username: this.state.username,
+      password: this.state.password
+    }
     fetch('http://localhost:4000/authenticate', {
       method: 'POST',
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(answer),
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Accept': 'application/json'
       },
       credentials: 'include'
     })
     .then(res => {
+      console.log(res.status)
       if (res.status === 200) {
         this.props.history.push('/');
       } else {
+        console.log('HEllooooooooooo')
         const error = new Error(res.error);
         throw error;
       }
