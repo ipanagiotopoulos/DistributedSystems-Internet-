@@ -34,15 +34,18 @@ class Login extends Component {
       credentials: 'include'
     })
     .then(res => {
-      if (res.status === 200) {
-        this.props.history.push('/');
+      if(res.status !== 200) {
+        res.json().then(res => {
+          alert(res.error)
+        })
       } else {
-        const error = new Error(res.error);
-        throw error;
+        res.json().then(res => {
+          this.props.history.push('/');
+        })
       }
     })
     .catch(err => {
-      alert('Error logging in please try again');
+      console.log(err)
     });
   }
 
@@ -51,7 +54,7 @@ class Login extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
               <div className="form-group">
                 <label >Username</label>
@@ -62,6 +65,7 @@ class Login extends Component {
                   placeholder="Enter username"
                   value={this.state.username}
                   onChange={this.onChange}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -73,6 +77,7 @@ class Login extends Component {
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.onChange}
+                  required
                 />
               </div>
               <button

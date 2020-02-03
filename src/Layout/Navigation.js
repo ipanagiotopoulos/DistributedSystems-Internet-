@@ -3,7 +3,6 @@ import {Navbar} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 class Navigation extends Component {
@@ -34,10 +33,12 @@ class Navigation extends Component {
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0 mx-4">
-                        <FontAwesomeIcon icon={faGithub} size="2x" className="mx-1" style={{color: "rgba(98,110,129,1)"}}/>
-                        <FontAwesomeIcon icon={faFacebook} size="2x" className="mx-1" style={{color: "rgba(98,110,129,1)"}}/>
-                        <FontAwesomeIcon icon={faLinkedin} size="2x" className="mx-1" style={{color: "rgba(98,110,129,1)"}}/>
-                        {/*<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>*/}
+                        <a href="https://github.com/vasilismantz" target="_blank">
+                            <FontAwesomeIcon icon={faGithub} size="2x" className="mx-1" style={{color: "rgba(98,110,129,1)"}}/>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mantzarisvasilis/" target="_blank">
+                            <FontAwesomeIcon icon={faLinkedin} size="2x" className="mx-1" style={{color: "rgba(98,110,129,1)"}}/>
+                        </a>
                         <NavLink to="/login" className="btn btn-outline-danger my-2 my-sm-0" type="submit" onClick={this.logout}>Logout</NavLink>
                     </form>
                  </div>

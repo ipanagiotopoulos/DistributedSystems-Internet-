@@ -21,6 +21,15 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  passwordVisibilityHandler = () => {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
   onChange = (event) => {
     const { value, name } = event.target;
     this.setState({
@@ -32,15 +41,15 @@ class Register extends Component {
     event.preventDefault();
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(this.state.password.toString(), salt)
-    this.setState({password: hash});
+    this.setState({hashedPassword: hash});
 
-    fetch('http://localhost:8080/spring-mvc-1/api/user/'+this.state.username)
+    fetch('http://localhost:8080/spring-mvc-1/api/user/'+this.state.username+'/')
         .then(user => user.json())
         .then(user => {
             if(Object.keys(user).length=='0'){
                 var answer1 = {
                     username: this.state.username,
-                    password: this.state.password,
+                    password: this.state.hashedPassword,
                     enabled: '1',            
                 }
 
@@ -118,7 +127,7 @@ class Register extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <h1 className="h3 mb-3 font-weight-normal">Please register</h1>
               <div className="form-group">
                 <label>Username</label>
@@ -129,6 +138,7 @@ class Register extends Component {
                   placeholder="Enter username"
                   value={this.state.username}
                   onChange={this.onChange}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -136,11 +146,16 @@ class Register extends Component {
                 <input
                   type="password"
                   className="form-control"
+                  id="password"
                   name="password"
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.onChange}
+                  required
                 />
+                <input
+                  type="checkbox" onClick={this.passwordVisibilityHandler}
+                /> Show Password
               </div>
               <div className="form-group">
                 <label>Name</label>
@@ -151,6 +166,7 @@ class Register extends Component {
                   placeholder="Enter name"
                   value={this.state.name}
                   onChange={this.onChange}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -162,20 +178,23 @@ class Register extends Component {
                   placeholder="Enter email"
                   value={this.state.email}
                   onChange={this.onChange}
+                  required
                 />
               </div>
               <div className="form-group">
                   <label>Department</label>
                   <select
-                      name="departmentName"
-                      className="form-control"
-                      value={this.state.departmentName} 
-                      onChange={this.onChange} >
-                      <option value="" defaultValue>Select Department</option>
-                      <option value="Informatics">Informatics</option>
-                      <option value="Geography">Geography</option>
-                      <option value="Dietics">Dietics</option>
-                      <option value="Economics">Economics</option>
+                    name="departmentName"
+                    className="form-control"
+                    value={this.state.departmentName} 
+                    onChange={this.onChange} 
+                    required
+                  >
+                    <option value="" defaultValue>Select Department</option>
+                    <option value="Informatics">Informatics</option>
+                    <option value="Geography">Geography</option>
+                    <option value="Dietics">Dietics</option>
+                    <option value="Economics">Economics</option>
                   </select>
                 </div>
                 <button
