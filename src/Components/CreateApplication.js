@@ -9,7 +9,7 @@ class CreateApplication extends Component {
 
         this.state = {
             username: Cookies.get('username'),
-            user: [],
+            user: {},
             departmentName: '',
             city: '',
             personalIncome: '',
@@ -25,14 +25,24 @@ class CreateApplication extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/spring-mvc-1/api/students/'+this.state.username)
+        fetch('http://localhost:8080/spring-mvc-1/api/students/'+this.state.username+'/')
             .then(function(response) {
                 return response.json()
             })
             .then(jsonData => {
-                this.setState({user: jsonData, isLoading: false})
+                this.setState({user: jsonData}, () => {
+                    fetch('http://localhost:8080/spring-mvc-1/api/departments/'+this.state.user.userInformation.departmentName+'/')
+                    .then(function(response) {
+                        return response.json()
+                    })
+                    .then(jsonData2 => {
+                        console.log(jsonData2)
+                        this.setState({department: jsonData2, isLoading: false})
+                    })
+                })
             })
     }
+
 
     handleChange = (event) => {
         const { value, name } = event.target;
@@ -54,7 +64,6 @@ class CreateApplication extends Component {
             siblingsStudents: this.state.siblingsStudents,
             active: null
         }
-        console.log(answer)
         fetch('http://localhost:8080/spring-mvc-1/api/addApplication', {
             method: 'POST',
             credentials: 'include',
@@ -77,6 +86,7 @@ class CreateApplication extends Component {
     render() {
         const { isLoading } = this.state;
         const { user } = this.state;
+        const { department } = this.state;
         const application = user.application;
         return (
             <React.Fragment>
@@ -86,108 +96,109 @@ class CreateApplication extends Component {
                         <Alert.Heading>Application Exists</Alert.Heading>
                         <p>Navigate to Show Application</p>
                     </Alert>
-                ): (
-                    <React.Fragment>
-                    {/* <Alert variant="success" className="mt-5">
-                    <Alert.Heading>Application Form</Alert.Heading> */}
-                    <br />
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-6 mt-5 mx-auto">
-                                    <form onSubmit={this.handleSubmit}>
-                                    <h1 className="h3 mb-3 font-weight-normal">Application Form</h1>
-                                    <div className="form-group">
-                                        <label>City</label>
-                                        <input
-                                        type="text"
-                                        className="form-control"
-                                        name="city"
-                                        placeholder="City"
-                                        value={this.state.city}
-                                        onChange={this.handleChange}
-                                        required
-                                        />
+                ) : (
+                    department.active !== 'active' ? ( 
+                        <Alert variant="danger" className="mt-5">
+                                <Alert.Heading>Application Period Not Started</Alert.Heading>
+                                <p>Please wait for officer to start the Application Period</p>
+                        </Alert> 
+                    ) : (
+                        <React.Fragment>
+                        {/* <Alert variant="success" className="mt-5">
+                        <Alert.Heading>Application Form</Alert.Heading> */}
+                        <br />
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-md-6 mt-5 mx-auto">
+                                        <form onSubmit={this.handleSubmit}>
+                                        <h1 className="h3 mb-3 font-weight-normal">Application Form</h1>
+                                        <div className="form-group">
+                                            <label>City</label>
+                                            <input
+                                            type="text"
+                                            className="form-control"
+                                            name="city"
+                                            placeholder="City"
+                                            value={this.state.city}
+                                            onChange={this.handleChange}
+                                            required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Personal Income</label>
+                                            <input
+                                            type="number"
+                                            className="form-control"
+                                            name="personalIncome"
+                                            placeholder="Personal Income"
+                                            value={this.state.personalIncome}
+                                            onChange={this.handleChange}
+                                            required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Family Income</label>
+                                            <input
+                                            type="number"
+                                            className="form-control"
+                                            name="familyIncome"
+                                            placeholder="Family Income"
+                                            value={this.state.familyIncome}
+                                            onChange={this.handleChange}
+                                            required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Parent 1 Employment Status</label>
+                                            <select
+                                            name="parent1_employmentStatus"
+                                            className="form-control"
+                                            value={this.state.parent1_employmentStatus} 
+                                            onChange={this.handleChange}
+                                            required>
+                                                <option value="" defaultValue>Select Employment Status</option>
+                                                <option value="emp">Employed</option>
+                                                <option value="unemp">Unemployed</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Parent 2 Employment Status</label>
+                                            <select
+                                            name="parent2_employmentStatus"
+                                            className="form-control"
+                                            value={this.state.parent2_employmentStatus} 
+                                            onChange={this.handleChange}
+                                            required>
+                                                <option value="" defaultValue>Select Employment Status</option>
+                                                <option value="emp">Employed</option>
+                                                <option value="unemp">Unemployed</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Siblings Students</label>
+                                            <input
+                                            type="number"
+                                            className="form-control"
+                                            name="siblingsStudents"
+                                            placeholder="Sibling Students"
+                                            value={this.state.siblingsStudents}
+                                            onChange={this.handleChange}
+                                            required
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-lg btn-primary btn-block"
+                                        >
+                                            Send Application
+                                        </button>
+                                        </form>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Personal Income</label>
-                                        <input
-                                        type="number"
-                                        className="form-control"
-                                        name="personalIncome"
-                                        placeholder="Personal Income"
-                                        value={this.state.personalIncome}
-                                        onChange={this.handleChange}
-                                        required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Family Income</label>
-                                        <input
-                                        type="number"
-                                        className="form-control"
-                                        name="familyIncome"
-                                        placeholder="Family Income"
-                                        value={this.state.familyIncome}
-                                        onChange={this.handleChange}
-                                        required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Parent 1 Employment Status</label>
-                                        <select
-                                        name="parent1_employmentStatus"
-                                        className="form-control"
-                                        value={this.state.parent1_employmentStatus} 
-                                        onChange={this.handleChange}
-                                        required>
-                                            <option value="" defaultValue>Select Employment Status</option>
-                                            <option value="emp">Employed</option>
-                                            <option value="unemp">Unemployed</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Parent 2 Employment Status</label>
-                                        <select
-                                        name="parent2_employmentStatus"
-                                        className="form-control"
-                                        value={this.state.parent2_employmentStatus} 
-                                        onChange={this.handleChange}
-                                        required>
-                                            <option value="" defaultValue>Select Employment Status</option>
-                                            <option value="emp">Employed</option>
-                                            <option value="unemp">Unemployed</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Siblings Students</label>
-                                        <input
-                                        type="number"
-                                        className="form-control"
-                                        name="siblingsStudents"
-                                        placeholder="Sibling Students"
-                                        value={this.state.siblingsStudents}
-                                        onChange={this.handleChange}
-                                        required
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-lg btn-primary btn-block"
-                                    >
-                                        Send Application
-                                    </button>
-                                    </form>
-                                </div>
                                 </div>
                             </div>
+                            </React.Fragment>
+                    )
 
-
-
-
-
-
-                     {/* </Alert> */}
-                     </React.Fragment>
                 )
             ) : (
                 <h3>Loading...</h3>
