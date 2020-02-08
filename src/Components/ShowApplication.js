@@ -44,8 +44,10 @@ class ShowApplication extends Component {
                     <p>Parent 1: {application.parent1_employmentStatus === 'emp' ? ('Employed') : ('Unemployed')}</p>
                     <p>Parent 2: {application.parent2_employmentStatus === 'emp' ? ('Employed') : ('Unemployed')}</p>
                     <p>Number of Student Siblings: {application.siblingsStudents}</p>
-                    <p>Application Status: {application.active === null ? ("Pending...") : application.active}</p>
-                    <p>Points: {this.state.user.userInformation.points}</p>
+                    <p>Application Status: <strong>{application.active === null ? ("Pending...") : application.active}</strong></p>
+                    <p>Rank: {user.userInformation.rank == null ? ("-/-") : user.userInformation.rank}/{user.userInformation.totalRanks}</p>
+                    <p>Qualifying for Free Meal: <strong>{user.userInformation.rank == null ? ("-")
+                            : user.userInformation.hasFreeMeal == '1' ? ("Yes") : ("No")}</strong></p>
                     </Alert>
                 )
             ) : (

@@ -54,6 +54,7 @@ class CreateApplication extends Component {
             siblingsStudents: this.state.siblingsStudents,
             active: null
         }
+        console.log(answer)
         fetch('http://localhost:8080/spring-mvc-1/api/addApplication', {
             method: 'POST',
             credentials: 'include',
@@ -93,7 +94,7 @@ class CreateApplication extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-6 mt-5 mx-auto">
-                                    <form noValidate onSubmit={this.handleSubmit}>
+                                    <form onSubmit={this.handleSubmit}>
                                     <h1 className="h3 mb-3 font-weight-normal">Application Form</h1>
                                     <div className="form-group">
                                         <label>City</label>
@@ -104,6 +105,7 @@ class CreateApplication extends Component {
                                         placeholder="City"
                                         value={this.state.city}
                                         onChange={this.handleChange}
+                                        required
                                         />
                                     </div>
                                     <div className="form-group">
@@ -115,6 +117,7 @@ class CreateApplication extends Component {
                                         placeholder="Personal Income"
                                         value={this.state.personalIncome}
                                         onChange={this.handleChange}
+                                        required
                                         />
                                     </div>
                                     <div className="form-group">
@@ -126,6 +129,7 @@ class CreateApplication extends Component {
                                         placeholder="Family Income"
                                         value={this.state.familyIncome}
                                         onChange={this.handleChange}
+                                        required
                                         />
                                     </div>
                                     <div className="form-group">
@@ -134,7 +138,8 @@ class CreateApplication extends Component {
                                         name="parent1_employmentStatus"
                                         className="form-control"
                                         value={this.state.parent1_employmentStatus} 
-                                        onChange={this.handleChange}>
+                                        onChange={this.handleChange}
+                                        required>
                                             <option value="" defaultValue>Select Employment Status</option>
                                             <option value="emp">Employed</option>
                                             <option value="unemp">Unemployed</option>
@@ -146,7 +151,8 @@ class CreateApplication extends Component {
                                         name="parent2_employmentStatus"
                                         className="form-control"
                                         value={this.state.parent2_employmentStatus} 
-                                        onChange={this.handleChange}>
+                                        onChange={this.handleChange}
+                                        required>
                                             <option value="" defaultValue>Select Employment Status</option>
                                             <option value="emp">Employed</option>
                                             <option value="unemp">Unemployed</option>
@@ -161,6 +167,7 @@ class CreateApplication extends Component {
                                         placeholder="Sibling Students"
                                         value={this.state.siblingsStudents}
                                         onChange={this.handleChange}
+                                        required
                                         />
                                     </div>
                                     <button

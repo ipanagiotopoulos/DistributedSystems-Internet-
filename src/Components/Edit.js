@@ -38,7 +38,10 @@ class Edit extends Component {
             email: this.state.email,
             departmentName: this.state.user.userInformation.departmentName,
             points: this.state.user.userInformation.points,
-            activated: this.state.user.userInformation.activated
+            rank: this.state.user.userInformation.rank,
+            totalRanks: this.state.user.userInformation.totalRanks,
+            hasFreeMeal:this.state.user.userInformation.hasFreeMeal,
+            activated: this.state.user.userInformation.activated,
         }
         fetch('http://localhost:8080/spring-mvc-1/api/editUser', {
             headers: {
@@ -59,7 +62,6 @@ class Edit extends Component {
 
     render() {
         const { isLoading } = this.state;
-        const { user } = this.state;
         return (
             <React.Fragment>
             {!isLoading ? (

@@ -58,7 +58,10 @@ class Register extends Component {
                     name: this.state.name,
                     email: this.state.email,
                     departmentName: this.state.departmentName,
-                    points: '',
+                    points: '0',
+                    rank: null,
+                    totalRanks: '0',
+                    hasFreeMeal: null,
                     activated: 'inactive'
                 }
 
@@ -89,6 +92,7 @@ class Register extends Component {
                             body: JSON.stringify(answer2)
                         })
                         .then(res => {
+                          console.log(res.status)
                             if(res.status == 200) {
                                 fetch('http://localhost:8080/spring-mvc-1/api/addAuthority', {
                                     headers: {
