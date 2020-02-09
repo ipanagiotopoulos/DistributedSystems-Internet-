@@ -36,7 +36,6 @@ class CreateApplication extends Component {
                         return response.json()
                     })
                     .then(jsonData2 => {
-                        console.log(jsonData2)
                         this.setState({department: jsonData2, isLoading: false})
                     })
                 })
